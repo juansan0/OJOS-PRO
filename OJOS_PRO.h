@@ -175,14 +175,16 @@ Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
 class OJOS_PRO{
   public:
 
-  void normales();
-  void enojados();
-  void preocupados();
-  void relajados();
-  void sorprendidos();
-  void atentos();
-  void guino();
-  void ejemplo();
+  void normales(); //< metodo para animacion de ojos normales
+  void enojados(); //< metodo para animacion de ojos enojados
+  void preocupados(); //< metodo para animacion de ojos preocupados
+  void relajados(); //< metodo para animacion de ojos relajados
+  void sorprendidos(); //< metodo para animacion de ojos sorprendidos
+  void atentos(); //< metodo para animacion de ojos atentos
+  void guino(); //< metodo para animacion de ojos guiñando
+  void ejemplo(); //< metodo para animacion de un ejemplo
+
+  void begin(); //< llama este metodo en la funcion setup() del main
 
   OJOS_PRO();
 };
@@ -195,116 +197,116 @@ void OJOS_PRO::normales(){
   display.drawBitmap(0, 0, OJOS_normales_00ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for half second
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_normales_01ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_normales_02ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_normales_03ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_normales_04ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_normales_05ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_normales_06ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_normales_07ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_normales_08ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_normales_09ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_normales_10ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_normales_11ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_normales_12ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_normales_13ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_normales_14ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_normales_15ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_normales_16ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_normales_17ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_normales_18ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_normales_19ARRAY, 128, 64, 1);
   display.display();
@@ -316,116 +318,116 @@ void OJOS_PRO::enojados(){
   display.drawBitmap(0, 0, OJOS_enojados_00ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for half second
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_enojados_01ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_enojados_02ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_enojados_03ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_enojados_04ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_enojados_05ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_enojados_06ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_enojados_07ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_enojados_08ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_enojados_09ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_enojados_10ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_enojados_11ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_enojados_12ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_enojados_13ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_enojados_14ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_enojados_15ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_enojados_16ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_enojados_17ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_enojados_18ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_enojados_19ARRAY, 128, 64, 1);
   display.display();
@@ -437,116 +439,116 @@ void OJOS_PRO::preocupados(){
   display.drawBitmap(0, 0, OJOS_preocupados_00ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for half second
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_preocupados_01ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_preocupados_02ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_preocupados_03ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_preocupados_04ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_preocupados_05ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_preocupados_06ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_preocupados_07ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_preocupados_08ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_preocupados_09ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_preocupados_10ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_preocupados_11ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_preocupados_12ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_preocupados_13ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_preocupados_14ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_preocupados_15ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_preocupados_16ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_preocupados_17ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_preocupados_18ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_preocupados_19ARRAY, 128, 64, 1);
   display.display();
@@ -558,116 +560,116 @@ void OJOS_PRO::relajados(){
   display.drawBitmap(0, 0, OJOS_relajados_00ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for half second
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_relajados_01ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_relajados_02ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_relajados_03ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_relajados_04ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_relajados_05ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_relajados_06ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_relajados_07ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_relajados_08ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_relajados_09ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_relajados_10ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_relajados_11ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_relajados_12ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_relajados_13ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_relajados_14ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_relajados_15ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_relajados_16ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_relajados_17ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_relajados_18ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_relajados_19ARRAY, 128, 64, 1);
   display.display();
@@ -679,116 +681,116 @@ void OJOS_PRO::sorprendidos(){
   display.drawBitmap(0, 0, OJOS_sorprendidos_00ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for half second
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_sorprendidos_01ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_sorprendidos_02ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_sorprendidos_03ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_sorprendidos_04ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_sorprendidos_05ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_sorprendidos_06ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_sorprendidos_07ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_sorprendidos_08ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_sorprendidos_09ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_sorprendidos_10ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_sorprendidos_11ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_sorprendidos_12ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_sorprendidos_13ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_sorprendidos_14ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_sorprendidos_15ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_sorprendidos_16ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_sorprendidos_17ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_sorprendidos_18ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_sorprendidos_19ARRAY, 128, 64, 1);
   display.display();
@@ -800,116 +802,116 @@ void OJOS_PRO::atentos(){
   display.drawBitmap(0, 0, OJOS_atentos_00ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for half second
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_atentos_01ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_atentos_02ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_atentos_03ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_atentos_04ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_atentos_05ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_atentos_06ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_atentos_07ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_atentos_08ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_atentos_09ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_atentos_10ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_atentos_11ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_atentos_12ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_atentos_13ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_atentos_14ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_atentos_15ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_atentos_16ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_atentos_17ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_atentos_18ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_atentos_19ARRAY, 128, 64, 1);
   display.display();
@@ -921,123 +923,123 @@ void OJOS_PRO::guino(){
   display.drawBitmap(0, 0, OJOS_guino_00ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for half second
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_guino_01ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_guino_02ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_guino_03ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_guino_04ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_guino_05ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_guino_06ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_guino_07ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_guino_08ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_guino_09ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_guino_10ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_guino_11ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_guino_12ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_guino_13ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_guino_14ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_guino_15ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_guino_16ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_guino_17ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_guino_18ARRAY, 128, 64, 1);
   display.display();
 
-  delay(100); // Pause for 1.5 seconds
-  display.clearDisplay();  // Clear the buffer
+  delay(100);
+  display.clearDisplay();
 
   display.drawBitmap(0, 0, OJOS_guino_19ARRAY, 128, 64, 1);
   display.display();
 }
 
 void OJOS_PRO::ejemplo(){
-  // Limpir buffer
+  
   display.clearDisplay();
  
   // Tamaño del texto
@@ -1079,3 +1081,13 @@ void OJOS_PRO::ejemplo(){
   display.stopscroll();
 }
 
+void OJOS_PRO::begin(){
+  if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C))
+  {
+    Serial.println(F("SSD1306 allocation failed"));
+    for (;;)
+      ;
+  }
+  delay(2000);
+  display.clearDisplay();
+}
