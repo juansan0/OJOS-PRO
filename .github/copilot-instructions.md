@@ -47,9 +47,11 @@ Relies on these Arduino libraries being installed alongside it: `Wire`,
 ## Conventions
 
 - Each animation method follows the same fixed pattern for every one of its
-  20 frames: `display.clearDisplay()` → `display.drawBitmap(0, 0, <FRAME_MACRO>, 128, 64, 1)`
-  → `display.display()` → `delay(100)`. When adding a new expression or
-  frame, mirror this exact sequence and naming scheme.
+  20 frames: `_display.clearDisplay()` → `_display.drawBitmap(0, 0, <FRAME_MACRO>, 128, 64, 1)`
+  → `_display.display()` → `_display.frameDelay(100)` (routed through the
+  injected `IEyeDisplay& _display` member, not a global `display` object or
+  Arduino's `delay()`). When adding a new expression or frame, mirror this
+  exact sequence and naming scheme.
 - Frame arrays are always accessed through the `OJOS_<expression>_NNARRAY`
   macros defined at the top of `OJOS_PRO.h`, never via the raw
   `ojos_<expression>_NNarray` symbol names directly in animation methods.
@@ -59,8 +61,10 @@ Relies on these Arduino libraries being installed alongside it: `Wire`,
   infrastructure code (the `IEyeDisplay` interface, host-compat shim,
   terminal renderer, CLI, and Makefile) uses English naming/comments instead.
 - `begin()` must be called from the sketch's `setup()` before any animation
-  method is used — it initializes the display and halts (infinite loop) if
-  `display.begin()` fails.
+  method is used — it delegates to `_display.begin()`. On the hardware
+  backend (`SSD1306EyeDisplay`) this initializes the real SSD1306 and halts
+  (infinite loop) if display initialization fails; the terminal backend's
+  `begin()` just resets its internal frame buffer.
 - `ejemplo()` is hardware-only and guarded by `#ifdef ARDUINO` because it uses
   Adafruit_GFX text/scrolling APIs with no terminal equivalent; it is not
   available through the native terminal CLI.
