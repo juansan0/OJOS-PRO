@@ -11,6 +11,7 @@ public:
     struct TerminalQuitRequested {};
 
     TerminalEyeDisplay();
+    ~TerminalEyeDisplay() override;
 
     void begin() override;
     void clearDisplay() override;
