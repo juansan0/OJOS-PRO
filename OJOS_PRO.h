@@ -1,7 +1,14 @@
+#ifdef ARDUINO
 #include <Wire.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
 #include <Arduino.h>
+#else
+#include <Arduino.h>  // native/compat/Arduino.h shim, resolved via the build's include path
+#endif
+
+#include <IEyeDisplay.h>
+
 #include <arrays/normales.hpp>
 #include <arrays/enojados.hpp>
 #include <arrays/preocupados.hpp>
@@ -170,7 +177,33 @@
 
 #endif
 
+#ifdef ARDUINO
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
+
+// Hardware backend adapter: wraps the real Adafruit_SSD1306 driver so
+// OJOS_PRO can talk to it through the generic IEyeDisplay interface.
+class SSD1306EyeDisplay : public IEyeDisplay {
+  public:
+  void begin() override {
+    if (!::display.begin(SSD1306_SWITCHCAPVCC, 0x3C))
+    {
+      Serial.println(F("SSD1306 allocation failed"));
+      for (;;)
+        ;
+    }
+    delay(2000);
+    ::display.clearDisplay();
+  }
+  void clearDisplay() override { ::display.clearDisplay(); }
+  void drawBitmap(int16_t x, int16_t y, const uint8_t* bitmap, int16_t w, int16_t h, uint16_t color) override {
+    ::display.drawBitmap(x, y, bitmap, w, h, color);
+  }
+  void display() override { ::display.display(); }
+  void frameDelay(unsigned long ms) override { delay(ms); }
+};
+
+static SSD1306EyeDisplay ojosHardwareDisplay;
+#endif
 
 class OJOS_PRO{
   public:
@@ -182,866 +215,885 @@ class OJOS_PRO{
   void sorprendidos(); //< metodo para animacion de ojos sorprendidos
   void atentos(); //< metodo para animacion de ojos atentos
   void guino(); //< metodo para animacion de ojos guiñando
-  void ejemplo(); //< metodo para animacion de un ejemplo
+  void ejemplo(); //< metodo para animacion de un ejemplo (solo disponible en hardware real, ver implementacion mas abajo)
 
   void begin(); //< llama este metodo en la funcion setup() del main
 
+  // Constructor genérico: recibe cualquier implementación de IEyeDisplay
+  // (hardware real, renderer de terminal, etc.), permitiendo desacoplar la
+  // animación del backend de renderizado concreto.
+  OJOS_PRO(IEyeDisplay& display);
+
+#ifdef ARDUINO
+  // Constructor de compatibilidad: mantiene el uso tradicional en sketches
+  // de Arduino (`OJOS_PRO ojos;`), usando automáticamente el display SSD1306
+  // real como backend.
   OJOS_PRO();
+#endif
+
+  private:
+  IEyeDisplay& _display;
 };
 
-OJOS_PRO::OJOS_PRO(){}
+OJOS_PRO::OJOS_PRO(IEyeDisplay& display) : _display(display) {}
+
+#ifdef ARDUINO
+OJOS_PRO::OJOS_PRO() : _display(ojosHardwareDisplay) {}
+#endif
 
 void OJOS_PRO::normales(){
-  display.clearDisplay();
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_normales_00ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_normales_00ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_normales_01ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_normales_01ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_normales_02ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_normales_02ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_normales_03ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_normales_03ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_normales_04ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_normales_04ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_normales_05ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_normales_05ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_normales_06ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_normales_06ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_normales_07ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_normales_07ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_normales_08ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_normales_08ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_normales_09ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_normales_09ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_normales_10ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_normales_10ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_normales_11ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_normales_11ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_normales_12ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_normales_12ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_normales_13ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_normales_13ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_normales_14ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_normales_14ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_normales_15ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_normales_15ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_normales_16ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_normales_16ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_normales_17ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_normales_17ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_normales_18ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_normales_18ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_normales_19ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_normales_19ARRAY, 128, 64, 1);
+  _display.display();
 }
 
 void OJOS_PRO::enojados(){
-  display.clearDisplay();
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_enojados_00ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_enojados_00ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_enojados_01ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_enojados_01ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_enojados_02ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_enojados_02ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_enojados_03ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_enojados_03ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_enojados_04ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_enojados_04ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_enojados_05ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_enojados_05ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_enojados_06ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_enojados_06ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_enojados_07ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_enojados_07ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_enojados_08ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_enojados_08ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_enojados_09ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_enojados_09ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_enojados_10ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_enojados_10ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_enojados_11ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_enojados_11ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_enojados_12ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_enojados_12ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_enojados_13ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_enojados_13ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_enojados_14ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_enojados_14ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_enojados_15ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_enojados_15ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_enojados_16ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_enojados_16ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_enojados_17ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_enojados_17ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_enojados_18ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_enojados_18ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_enojados_19ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_enojados_19ARRAY, 128, 64, 1);
+  _display.display();
 }
 
 void OJOS_PRO::preocupados(){
-  display.clearDisplay();
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_preocupados_00ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_preocupados_00ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_preocupados_01ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_preocupados_01ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_preocupados_02ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_preocupados_02ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_preocupados_03ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_preocupados_03ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_preocupados_04ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_preocupados_04ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_preocupados_05ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_preocupados_05ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_preocupados_06ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_preocupados_06ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_preocupados_07ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_preocupados_07ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_preocupados_08ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_preocupados_08ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_preocupados_09ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_preocupados_09ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_preocupados_10ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_preocupados_10ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_preocupados_11ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_preocupados_11ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_preocupados_12ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_preocupados_12ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_preocupados_13ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_preocupados_13ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_preocupados_14ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_preocupados_14ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_preocupados_15ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_preocupados_15ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_preocupados_16ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_preocupados_16ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_preocupados_17ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_preocupados_17ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_preocupados_18ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_preocupados_18ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_preocupados_19ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_preocupados_19ARRAY, 128, 64, 1);
+  _display.display();
 }
 
 void OJOS_PRO::relajados(){
-  display.clearDisplay();
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_relajados_00ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_relajados_00ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_relajados_01ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_relajados_01ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_relajados_02ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_relajados_02ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_relajados_03ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_relajados_03ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_relajados_04ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_relajados_04ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_relajados_05ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_relajados_05ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_relajados_06ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_relajados_06ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_relajados_07ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_relajados_07ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_relajados_08ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_relajados_08ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_relajados_09ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_relajados_09ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_relajados_10ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_relajados_10ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_relajados_11ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_relajados_11ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_relajados_12ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_relajados_12ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_relajados_13ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_relajados_13ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_relajados_14ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_relajados_14ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_relajados_15ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_relajados_15ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_relajados_16ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_relajados_16ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_relajados_17ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_relajados_17ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_relajados_18ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_relajados_18ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_relajados_19ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_relajados_19ARRAY, 128, 64, 1);
+  _display.display();
 }
 
 void OJOS_PRO::sorprendidos(){
-  display.clearDisplay();
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_sorprendidos_00ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_sorprendidos_00ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_sorprendidos_01ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_sorprendidos_01ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_sorprendidos_02ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_sorprendidos_02ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_sorprendidos_03ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_sorprendidos_03ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_sorprendidos_04ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_sorprendidos_04ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_sorprendidos_05ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_sorprendidos_05ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_sorprendidos_06ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_sorprendidos_06ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_sorprendidos_07ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_sorprendidos_07ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_sorprendidos_08ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_sorprendidos_08ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_sorprendidos_09ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_sorprendidos_09ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_sorprendidos_10ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_sorprendidos_10ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_sorprendidos_11ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_sorprendidos_11ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_sorprendidos_12ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_sorprendidos_12ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_sorprendidos_13ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_sorprendidos_13ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_sorprendidos_14ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_sorprendidos_14ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_sorprendidos_15ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_sorprendidos_15ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_sorprendidos_16ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_sorprendidos_16ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_sorprendidos_17ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_sorprendidos_17ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_sorprendidos_18ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_sorprendidos_18ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_sorprendidos_19ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_sorprendidos_19ARRAY, 128, 64, 1);
+  _display.display();
 }
 
 void OJOS_PRO::atentos(){
-  display.clearDisplay();
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_atentos_00ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_atentos_00ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_atentos_01ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_atentos_01ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_atentos_02ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_atentos_02ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_atentos_03ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_atentos_03ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_atentos_04ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_atentos_04ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_atentos_05ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_atentos_05ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_atentos_06ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_atentos_06ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_atentos_07ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_atentos_07ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_atentos_08ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_atentos_08ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_atentos_09ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_atentos_09ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_atentos_10ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_atentos_10ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_atentos_11ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_atentos_11ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_atentos_12ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_atentos_12ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_atentos_13ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_atentos_13ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_atentos_14ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_atentos_14ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_atentos_15ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_atentos_15ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_atentos_16ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_atentos_16ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_atentos_17ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_atentos_17ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_atentos_18ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_atentos_18ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_atentos_19ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_atentos_19ARRAY, 128, 64, 1);
+  _display.display();
 }
 
 void OJOS_PRO::guino(){
-  display.clearDisplay();
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_guino_00ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_guino_00ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_guino_01ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_guino_01ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_guino_02ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_guino_02ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_guino_03ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_guino_03ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_guino_04ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_guino_04ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_guino_05ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_guino_05ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_guino_06ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_guino_06ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_guino_07ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_guino_07ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_guino_08ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_guino_08ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_guino_09ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_guino_09ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_guino_10ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_guino_10ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_guino_11ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_guino_11ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_guino_12ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_guino_12ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_guino_13ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_guino_13ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_guino_14ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_guino_14ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_guino_15ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_guino_15ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_guino_16ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_guino_16ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_guino_17ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_guino_17ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_guino_18ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_guino_18ARRAY, 128, 64, 1);
+  _display.display();
 
-  delay(100);
-  display.clearDisplay();
+  _display.frameDelay(100);
+  _display.clearDisplay();
 
-  display.drawBitmap(0, 0, OJOS_guino_19ARRAY, 128, 64, 1);
-  display.display();
+  _display.drawBitmap(0, 0, OJOS_guino_19ARRAY, 128, 64, 1);
+  _display.display();
 }
 
+// ejemplo() usa funciones de texto/scroll especificas del hardware SSD1306 y solo esta disponible compilando para Arduino (ARDUINO definido).
+#ifdef ARDUINO
 void OJOS_PRO::ejemplo(){
-  
+   
   display.clearDisplay();
- 
+  
   // Tamaño del texto
   display.setTextSize(1);
   // Color del texto
@@ -1055,39 +1107,33 @@ void OJOS_PRO::ejemplo(){
   display.write(173);
   // Escribir texto
   display.println("OJOS PRO");
-  
+   
   // Enviar a pantalla
   display.display();
   delay(2000);
- 
+  
   // Mover texto de izquierda a derecha
   display.startscrollright(0x00, 0x0F);
   delay(5000);
   display.stopscroll();
-  
+   
   // Mover texto de derecha a izquierda
   display.startscrollleft(0x00, 0x0F);
   delay(5000);
   display.stopscroll();
- 
+  
   // Mover texto en diagonal hacia la derecha
   display.startscrolldiagright(0x00, 0x07);
   delay(5000);
   display.stopscroll();
- 
+  
   // Mover texto en diagonal hacia la izquierda
   display.startscrolldiagleft(0x00, 0x07);
   delay(5000);
   display.stopscroll();
 }
+#endif
 
 void OJOS_PRO::begin(){
-  if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C))
-  {
-    Serial.println(F("SSD1306 allocation failed"));
-    for (;;)
-      ;
-  }
-  delay(2000);
-  display.clearDisplay();
+  _display.begin();
 }
